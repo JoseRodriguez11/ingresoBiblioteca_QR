@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escáner de Código QR</title>
+    
+    <script src="./node_modules/html5-qrcode/html5-qrcode.min.js"></script>
+
+    <style>
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #reader {
+            width: 600px;
+        }
+
+        #result {
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        .barra-azul {
+            background-color: #2c3e50;
+            height: 50px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        .contenedor {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <div class="barra-azul"></div>
+        <div class="contenedor">
+            <div id="reader"></div>
+            <div id="result"></div>
+        </div>
+
+    </main>
+    <script src="./node_modules/axios/dist/axios.min.js"></script>
+
+    <script>
+        const scanner = new Html5QrcodeScanner('reader', {
+            qrbox: {
+                width: 250,
+                height: 250
+            },
+            fps: 30,
+        });
+
+        scanner.render(success, error);
+
+        function success(result) {
+
+            // Realizar una solicitud al servidor Node.js con el resultado del escaneo
+            axios.get(`http://localhost:3000/extraer-datos?url=${encodeURIComponent(result)}`)
+                .then(response => {
+                    const data = response.data;
+                    document.getElementById('result').innerHTML = `
+                         <h2>Registro exitoso!</h2>
+                         <p><strong>Bienvenido </strong> ${data.Nombre}</p>
+                         <button id="redirectToPageButton" style="background-color: #2c3e50; color: white; padding: 10px 20px; font-size: 16px;">Hecho</button>
+                     `;
+                    // Agregar un event listener al botón para redirigir a otra página
+                    document.getElementById('redirectToPageButton').addEventListener('click', function () {
+                        // Redirigir a otra página HTML
+                        window.location.href = 'TyC.html';
+                    });
+                })
+                .catch(error => {
+                    console.error(error);
+                    document.getElementById('result').innerHTML = `<p>Error al extraer datos.</p>`;
+                })
+                .finally(() => {
+                    scanner.clear();
+                    document.getElementById('reader').remove();
+                });
+        }
+
+        function error(err) {
+            console.error(err);
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TyC</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+        }
+
+        .barra-azul {
+            background-color: #2c3e50;
+            height: 50px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 1200px;
+        }
+
+        h1 {
+            margin-bottom: 5px;
+            white-space: nowrap;
+        }
+
+        p {
+            margin: 10px 0;
+            text-align: justify;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .terms-label {
+            margin-right: 800px;
+            font-weight: bold;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1d2936;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="barra-azul"></div>
+    <div class="container">
+        <h1>REGISTRO DE INGRESO A LA BIBLIOTECA</h1>
+        <h3 style="color: blue;">Bienvenido a nuestra Biblioteca. Para poder brindarte un mejor servicio le pedimos por
+            favor leer los siguientes TyC.</h3>
+        <p>La institución Universitaria Colegio Mayor Del Cauca le informa que sus datos personales se encuentran
+            incluidos en nuestras bases
+            de datos con los debidos controles de seguridad y confidencialidad. Por lo cual se garantiza el adecuado
+            tratamiento y uso de sus
+            datos personales. Lo anterior dando cumplimiento a los principios constitucionales y a la ley estatutaria
+            1581 de 2012. Como titular de
+            la información tiene derecho a conocer, actualizar, rectificar sus datos personales y solo en casos en que
+            sea procedente, a suprimirlos
+            o revocar la autorización otorgada para su tratamiento. En este entendido y autorizo de manera libre,
+            previa, voluntaria, informada e
+            inequívoca a la Institución Universitaria Colegio Mayor Del Cauca, como responsable de los datos aquí
+            suministrados, para fines
+            de recolección, almacenamiento, tratamiento y actualización de la información e invitación a eventos y/o
+            actividades. Si desea ampliar
+            la información y conocer más acerca de la Política de tratamiento de Datos de la Institución, puede <a
+                href="www.google.com">consultarlo aquí</a>.
+        </p>
+        <div>
+            <input type="checkbox" id="terms" name="terms">
+            <label class="terms-label" for="terms">Acepto los términos y condiciones</label>
+            <button id="submitButton">Siguiente</button>
+        </div>
+        <script>
+         document.getElementById("submitButton").addEventListener("click", function() {
+            var checkbox = document.getElementById("terms");
+
+            if (!checkbox.checked) {
+                alert("Por favor, acepta los términos y condiciones para continuar.");
+            } else {
+                window.location.href = "index.html";
+            }
+        });
+        </script>
+    </div>
+</body>
+
+</html>
